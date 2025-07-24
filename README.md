@@ -4,6 +4,10 @@ Repository for DevOps with Kubernetes -course organized by University of Helsink
 
 ## Exercises
 
+**Chapter 1:**
+
+- [x] Exercise 0.1
+
 **Chapter 2:**
 
 - [Exercise 1.1](https://github.com/LeeviHalme/fullstack-kubernetes/tree/1.1/log-output)
