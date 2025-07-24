@@ -15,3 +15,4 @@ spec:
       containers:
         - name: todo-app
           image: leevihalme/todo-app:latest
+          imagePullPolicy: Always
