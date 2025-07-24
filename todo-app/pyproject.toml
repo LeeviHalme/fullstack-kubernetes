@@ -1,0 +1,20 @@
+[project]
+name = "todo-app"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "LeeviHalme",email = "29179759+LeeviHalme@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "flask (>=3.1.1,<4.0.0)"
+]
+
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
