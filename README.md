@@ -16,3 +16,4 @@ Repository for DevOps with Kubernetes -course organized by University of Helsink
 - [Exercise 1.4](https://github.com/LeeviHalme/fullstack-kubernetes/tree/1.4/todo-app)
 - [Exercise 1.5](https://github.com/LeeviHalme/fullstack-kubernetes/tree/1.5/todo-app)
 - [Exercise 1.6](https://github.com/LeeviHalme/fullstack-kubernetes/tree/1.6/todo-app)
+- [Exercise 1.7](https://github.com/LeeviHalme/fullstack-kubernetes/tree/1.7/log-output)
