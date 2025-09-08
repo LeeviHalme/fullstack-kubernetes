@@ -2,6 +2,13 @@ FROM python:3.13-slim
 
 WORKDIR /app
 
-COPY main.py .
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python", "-u", "./main.py"]
+COPY main.py .
+COPY gunicorn.py .
+
+EXPOSE 5000
+
+CMD ["gunicorn","--log-level", "info", "--bind", "0.0.0.0:5000", "--config", "gunicorn.py", "main:app"]

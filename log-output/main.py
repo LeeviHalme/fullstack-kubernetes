@@ -1,26 +1,38 @@
 import time
 import random
 import string
-import signal
+import threading
 from datetime import datetime
+from flask import Flask, jsonify
 
-def generate_random_string(length=12):
-  return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+app = Flask(__name__)
 
-running = True
+RANDOM_STRING = ''.join(random.choices(string.ascii_letters + string.digits, k=12))
+LATEST_LOG_ENTRY = None
 
-def main():
-  random_str = generate_random_string()
-  while running:
-    timestamp = datetime.isoformat(datetime.now())
-    print(f"{timestamp}: {random_str}")
-    time.sleep(5)
+@app.get("/status")
+def get_status():
+    return jsonify({"latest_log_entry": LATEST_LOG_ENTRY})
 
-def handle_sigterm():
-    global running
-    running = False
+def log_loop():
+    """
+    This function will run in a separate thread and continuously
+    update the global log entry.
+    """
+    global LATEST_LOG_ENTRY
+    while True:
+        timestamp = datetime.isoformat(datetime.now())
+        LATEST_LOG_ENTRY = f"{timestamp}: {RANDOM_STRING}"
+        print(LATEST_LOG_ENTRY)
+        time.sleep(5)
 
-signal.signal(signal.SIGTERM, handle_sigterm)
+def start_log_loop():
+    """
+    Start the logging loop in a background thread.
+    daemon=True ensures the thread exits when the main program does.
+    """
+    logging_thread = threading.Thread(target=log_loop, daemon=True)
+    logging_thread.start()
 
 if __name__ == "__main__":
-  main()
+    app.run(host='0.0.0.0', port=5000)
