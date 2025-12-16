@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pong-app-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: pong-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 5500 # The port the service exposes to the cluster
+      targetPort: 5500 # The port on the container itself

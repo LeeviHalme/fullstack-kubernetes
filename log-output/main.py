@@ -14,6 +14,13 @@ LATEST_LOG_ENTRY = None
 def get_status():
     return jsonify({"latest_log_entry": LATEST_LOG_ENTRY})
 
+@app.errorhandler(404)
+def resource_not_found(_e):
+    return jsonify(
+        error="Not Found",
+        message="This 404 response is from the LOG-OUTPUT application."
+    ), 404
+
 def log_loop():
     """
     This function will run in a separate thread and continuously
