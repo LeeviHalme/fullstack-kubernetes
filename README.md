@@ -2,6 +2,20 @@
 
 Repository for DevOps with Kubernetes -course organized by University of Helsinki in Fall 2025.
 
+## Getting started
+
+Creating a k3d cluster with 2 agents and exposing LB to port 80:
+
+```
+k3d cluster create k3s-default -p "80:80@loadbalancer" --agents 2
+```
+
+Applying configurations:
+
+```
+kubectl apply -f ./.../manifests/....yml
+```
+
 ## Exercises
 
 **Chapter 1:**
@@ -18,3 +32,4 @@ Repository for DevOps with Kubernetes -course organized by University of Helsink
 - [Exercise 1.6](https://github.com/LeeviHalme/fullstack-kubernetes/tree/1.6/todo-app)
 - [Exercise 1.7](https://github.com/LeeviHalme/fullstack-kubernetes/tree/1.7/log-output)
 - [Exercise 1.8](https://github.com/LeeviHalme/fullstack-kubernetes/tree/1.8/todo-app)
+- [Exercise 1.9](https://github.com/LeeviHalme/fullstack-kubernetes/tree/1.9/pong-app)
