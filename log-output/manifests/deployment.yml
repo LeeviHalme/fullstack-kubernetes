@@ -12,7 +12,19 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes: # Define volume
+        - name: shared-volume
+          emptyDir: {}
       containers:
-        - name: log-output
-          image: leevihalme/log-output:latest
+        - name: log-output-writer
+          image: leevihalme/log-output:writer # use writer tag for the standalone container
           imagePullPolicy: Always
+          volumeMounts: # Mount volume
+            - name: shared-volume
+              mountPath: /usr/src/app/files
+        - name: log-output-server
+          image: leevihalme/log-output:server # use server tag for the HTTP container
+          imagePullPolicy: Always
+          volumeMounts: # Mount volume
+            - name: shared-volume
+              mountPath: /usr/src/app/files
