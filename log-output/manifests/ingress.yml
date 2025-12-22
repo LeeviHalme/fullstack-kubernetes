@@ -6,10 +6,17 @@ spec:
   rules:
     - http:
         paths:
-          - path: /
+          - path: /get-log
             pathType: Prefix
             backend:
               service:
                 name: log-output-svc
                 port:
                   number: 5000
+          - path: /pingpong
+            pathType: Prefix
+            backend:
+              service:
+                name: pong-app-svc
+                port:
+                  number: 5500

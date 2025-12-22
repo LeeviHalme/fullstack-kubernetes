@@ -14,7 +14,8 @@ spec:
     spec:
       volumes: # Define volume
         - name: shared-volume
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: example-claim
       containers:
         - name: log-output-writer
           image: leevihalme/log-output:writer # use writer tag for the standalone container

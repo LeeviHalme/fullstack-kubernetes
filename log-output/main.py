@@ -6,9 +6,12 @@ app = Flask(__name__)
 def get_status():
     try:
         with open("files/output.txt", "r") as file:
-            content = file.read()
+            log_content = file.read()
 
-        return jsonify({"log": content}), 200
+        with open("files/pong.txt", "r") as file:
+            pong_content = file.read()
+
+        return jsonify({"log": log_content, "pong": pong_content}), 200
 
     except FileNotFoundError:
         return jsonify({"error": "Log file was not found"}), 404

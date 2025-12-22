@@ -8,6 +8,10 @@ COUNTER = 0
 def get_status():
     global COUNTER
     COUNTER += 1
+
+    with open("files/pong.txt", "w") as file:
+        file.write(str(COUNTER))
+
     return f"pong {COUNTER}"
 
 if __name__ == "__main__":
