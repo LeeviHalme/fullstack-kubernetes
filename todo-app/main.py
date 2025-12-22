@@ -17,7 +17,8 @@ def refetch_image():
 
 @app.get('/')
 def index():
-    return render_template('index.html')
+    hardcoded_todos = ["Learn Kubernetes", "Learn Flask", "Build awesome apps"]
+    return render_template('index.html', todos=hardcoded_todos)
 
 @app.get('/get-img')
 def get_img():
