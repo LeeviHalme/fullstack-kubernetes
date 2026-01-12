@@ -40,4 +40,4 @@ kubectl apply -f ./.../manifests/....yml
 
 **Chapter 3:**
 
-- [Exercise 2.1](https://github.com/LeeviHalme/fullstack-kubernetes/releases/tag/2.1)
+- [Exercise 2.1](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.1/log-output)
