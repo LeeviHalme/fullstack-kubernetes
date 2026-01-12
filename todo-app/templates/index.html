@@ -8,13 +8,13 @@
   <body>
     <h2>Welcome to the todo-app!</h2>
     <img src="/get-img" alt="Hourly Image" height="200" width="200" />
-    <div>
-      <input type="text" maxlength="140" />
-      <button>Create todo</button>
-    </div>
+    <form action="/api/todos" method="POST">
+      <input type="text" maxlength="140" name="name" />
+      <button type="submit">Create todo</button>
+    </form>
     <ul>
       {% for todo in todos %}
-      <li>{{ todo }}</li>
+      <li>{{ todo.get("name") }}</li>
       {% endfor %}
     </ul>
     <p>DevOps with Kubernetes 2025</p>
