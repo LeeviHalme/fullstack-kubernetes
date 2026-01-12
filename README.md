@@ -41,3 +41,4 @@ kubectl apply -f ./.../manifests/....yml
 **Chapter 3:**
 
 - [Exercise 2.1](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.1/log-output)
+- [Exercise 2.2](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.2/todo-backend)
