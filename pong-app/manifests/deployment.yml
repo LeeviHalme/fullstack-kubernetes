@@ -12,14 +12,7 @@ spec:
       labels:
         app: pong-app
     spec:
-      volumes: # Define volume
-        - name: shared-volume
-          persistentVolumeClaim:
-            claimName: example-claim
       containers:
         - name: pong-app
           image: leevihalme/pong-app:latest
           imagePullPolicy: Always
-          volumeMounts: # Mount volume
-            - name: shared-volume
-              mountPath: /usr/src/app/files

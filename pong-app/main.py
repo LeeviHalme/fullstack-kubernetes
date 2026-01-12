@@ -9,10 +9,11 @@ def get_status():
     global COUNTER
     COUNTER += 1
 
-    with open("files/pong.txt", "w") as file:
-        file.write(str(COUNTER))
-
     return f"pong {COUNTER}"
+
+@app.get("/pings")
+def get_pings():
+    return { "pings": COUNTER }
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5500)

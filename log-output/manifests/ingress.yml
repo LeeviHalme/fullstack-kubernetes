@@ -20,3 +20,10 @@ spec:
                 name: pong-app-svc
                 port:
                   number: 5500
+          - path: /pings
+            pathType: Prefix
+            backend:
+              service:
+                name: pong-app-svc
+                port:
+                  number: 5500
