@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: wiki-todo-generator
+  namespace: project
+spec:
+  schedule: "0 * * * *" # Runs at the start of every hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: generator
+              image: curlimages/curl:latest
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  # 1. Get the random URL from the redirect header
+                  WIKI_URL=$(curl -sI https://en.wikipedia.org/wiki/Special:Random | grep -i location | awk '{print $2}' | tr -d '\r')
+
+                  # 2. Format the message
+                  TODO_MSG="Read $WIKI_URL"
+                  echo "Adding: $TODO_MSG"
+
+                  # 3. POST it to the backend service
+                  curl -X POST http://todo-backend-svc:8000/api/todos \
+                    --data-urlencode "name=$TODO_MSG"
+          restartPolicy: OnFailure
