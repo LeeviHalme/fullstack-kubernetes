@@ -47,3 +47,4 @@ kubectl apply -f ./.../manifests/....yml
 - [Exercise 2.5](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.5/log-output)
 - [Exercise 2.6](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.6/todo-app)
 - [Exercise 2.7](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.7/pong-app)
+- [Exercise 2.8](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.8/todo-backend)
