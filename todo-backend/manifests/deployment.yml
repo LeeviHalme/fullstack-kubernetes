@@ -19,4 +19,12 @@ spec:
           imagePullPolicy: Always
           env:
             - name: PORT
-              value: "8000"
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-config
+                  key: port
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-config
+                  key: database_url
