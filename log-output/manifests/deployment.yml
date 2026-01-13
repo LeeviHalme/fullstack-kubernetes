@@ -17,6 +17,12 @@ spec:
         - name: shared-volume
           persistentVolumeClaim:
             claimName: example-claim
+        - name: config
+          configMap:
+            name: log-output-config
+            items:
+              - key: information
+                path: information.txt
       containers:
         - name: log-output-writer
           image: leevihalme/log-output:writer # use writer tag for the standalone container
@@ -30,3 +36,12 @@ spec:
           volumeMounts: # Mount volume
             - name: shared-volume
               mountPath: /usr/src/app/files
+            - name: config
+              mountPath: /config
+              readOnly: true
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: message
