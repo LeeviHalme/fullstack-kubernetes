@@ -17,3 +17,6 @@ spec:
         - name: todo-backend
           image: leevihalme/todo-backend:latest
           imagePullPolicy: Always
+          env:
+            - name: PORT
+              value: "8000"

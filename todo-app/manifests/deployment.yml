@@ -24,3 +24,10 @@ spec:
           volumeMounts: # Mount volume
             - name: shared-volume
               mountPath: /usr/src/app/static
+          env:
+            - name: PORT
+              value: "3000"
+            - name: BACKEND_API_BASE_URL
+              value: "http://todo-backend-svc:8000"
+            - name: IMAGE_API_URL
+              value: "https://picsum.photos/1200"

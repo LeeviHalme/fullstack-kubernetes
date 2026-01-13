@@ -17,3 +17,6 @@ spec:
         - name: pong-app
           image: leevihalme/pong-app:latest
           imagePullPolicy: Always
+          env:
+            - name: PORT
+              value: "5500"

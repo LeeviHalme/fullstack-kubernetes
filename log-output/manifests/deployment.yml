@@ -30,6 +30,12 @@ spec:
           volumeMounts: # Mount volume
             - name: shared-volume
               mountPath: /usr/src/app/files
+          env:
+            - name: OUTPUT_FILE_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: output_file_path
         - name: log-output-server
           image: leevihalme/log-output:server # use server tag for the HTTP container
           imagePullPolicy: Always
@@ -45,3 +51,21 @@ spec:
                 configMapKeyRef:
                   name: log-output-config
                   key: message
+            - name: INFORMATION_FILE_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: information_file_path
+            - name: OUTPUT_FILE_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: output_file_path
+            - name: PONG_API_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: pong_api_endpoint
+              # static value provided directly
+            - name: PORT
+              value: "5000"

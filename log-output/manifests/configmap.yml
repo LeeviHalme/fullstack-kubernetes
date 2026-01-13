@@ -13,3 +13,8 @@ data:
     value stored in a ConfigMap.
     It can contain line breaks
     and other formatting.
+
+  information_file_path: "/config/information.txt"
+  output_file_path: "files/output.txt"
+
+  pong_api_endpoint: "http://pong-app-svc:5500/pings"
