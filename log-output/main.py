@@ -4,6 +4,21 @@ import requests
 
 app = Flask(__name__)
 
+pong_api_endpoint = os.getenv("PONG_API_ENDPOINT")
+
+@app.get("/log/healthz")
+def health_check():
+    """Health check endpoint to verify pong-app connectivity."""
+    try:
+        # Try to reach the Ping-pong service internally
+        response = requests.get(pong_api_endpoint, timeout=2)
+        if response.status_code == 200:
+            return "OK", 200
+
+        return "pong-app not ready", 500
+    except Exception: # pylint: disable=broad-except
+        return "pong-app unreachable", 500
+
 @app.get("/get-log")
 def get_status():
     """
@@ -12,7 +27,6 @@ def get_status():
     try:
         information_file_path = os.getenv("INFORMATION_FILE_PATH")
         output_file_path = os.getenv("OUTPUT_FILE_PATH")
-        pong_api_endpoint = os.getenv("PONG_API_ENDPOINT")
 
         # get environment variable MESSAGE
         message_content = os.getenv("MESSAGE", None)

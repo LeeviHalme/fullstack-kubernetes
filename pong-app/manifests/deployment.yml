@@ -22,3 +22,9 @@ spec:
               value: "5500"
             - name: DATABASE_URL
               value: "postgresql://postgres:lamepassword@postgres-svc:5432/pingpong"
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+              path: /pong/healthz
+              port: 5500

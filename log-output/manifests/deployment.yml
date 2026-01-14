@@ -45,6 +45,12 @@ spec:
             - name: config
               mountPath: /config
               readOnly: true
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+              path: /log/healthz
+              port: 5000
           env:
             - name: MESSAGE
               valueFrom:

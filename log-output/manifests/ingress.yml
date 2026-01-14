@@ -14,6 +14,13 @@ spec:
                 name: log-output-svc
                 port:
                   number: 5000
+          - path: /log/healthz
+            pathType: Prefix
+            backend:
+              service:
+                name: log-output-svc
+                port:
+                  number: 5000
           - path: /pingpong
             pathType: Prefix
             backend:
@@ -22,6 +29,13 @@ spec:
                 port:
                   number: 5500
           - path: /pings
+            pathType: Prefix
+            backend:
+              service:
+                name: pong-app-svc
+                port:
+                  number: 5500
+          - path: /pong/healthz
             pathType: Prefix
             backend:
               service:

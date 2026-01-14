@@ -13,15 +13,34 @@ def get_db_connection():
 
 def init_db():
     """Initialize the database and create the counter table if it doesn't exist."""
-    conn = get_db_connection()
-    cur = conn.cursor()
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
 
-    cur.execute("CREATE TABLE IF NOT EXISTS counter (id INT PRIMARY KEY, count INT);")
-    cur.execute("INSERT INTO counter (id, count) VALUES (1, 0) ON CONFLICT (id) DO NOTHING;")
+        cur.execute("CREATE TABLE IF NOT EXISTS counter (id INT PRIMARY KEY, count INT);")
+        cur.execute("INSERT INTO counter (id, count) VALUES (1, 0) ON CONFLICT (id) DO NOTHING;")
 
-    conn.commit()
-    cur.close()
-    conn.close()
+        conn.commit()
+        cur.close()
+        conn.close()
+    except Exception as e: # pylint: disable=broad-except
+        print(f"Error initializing database: {e}")
+
+@app.get("/pong/healthz")
+def health_check():
+    """Health check endpoint to verify database connectivity."""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        cur.execute("SELECT 1;") # Simple query to test connection
+
+        cur.close()
+        conn.close()
+
+        return "OK", 200
+    except Exception: # pylint: disable=broad-except
+        return "Database not reachable", 500
 
 @app.get("/pingpong")
 def get_status():
