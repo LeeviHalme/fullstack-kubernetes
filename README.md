@@ -56,3 +56,5 @@ kubectl apply -f ./.../manifests/....yml
 _No exercises completed_
 
 **Chapter 5:**
+
+- [Exercise 4.1](https://github.com/LeeviHalme/fullstack-kubernetes/tree/4.1/pong-app)
