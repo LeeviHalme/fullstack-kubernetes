@@ -1,4 +1,5 @@
 import os
+import sys
 import psycopg2
 from flask import Flask, request, redirect
 
@@ -28,6 +29,11 @@ def init_db():
 # Initialize DB at the top level for Gunicorn
 init_db()
 
+@app.before_request
+def log_request_info():
+    """Log incoming requests."""
+    print(f"--> {request.method} {request.path}", file=sys.stderr)
+
 @app.get('/api/todos')
 def get_todos():
     """
@@ -53,20 +59,27 @@ def add_todo():
     # Use request.form to get data from HTML <input name="name" />
     todo_name = request.form.get('name')
 
-    if todo_name:
-        conn = get_db_connection()
-        cur = conn.cursor()
+    if not todo_name:
+        print("ERROR: No todo provided", file=sys.stderr)
+        return {'error': 'No todo provided'}, 400
 
-        cur.execute("INSERT INTO todos (name, done) VALUES (%s, %s);", (todo_name, False))
+    if len(todo_name) > 140:
+        print(f"ERROR: Todo is too long: {todo_name}", file=sys.stderr)
+        return {'error': 'Todo is too long'}, 400
 
-        conn.commit()
-        cur.close()
-        conn.close()
+    conn = get_db_connection()
+    cur = conn.cursor()
 
-        # Redirect back to the frontend home page
-        return redirect('/')
+    cur.execute("INSERT INTO todos (name, done) VALUES (%s, %s);", (todo_name, False))
 
-    return {'error': 'No todo provided'}, 400
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    print(f"Added todo: {todo_name}", file=sys.stderr)
+
+    # Redirect back to the frontend home page
+    return redirect('/')
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT'))
