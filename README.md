@@ -49,3 +49,10 @@ kubectl apply -f ./.../manifests/....yml
 - [Exercise 2.7](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.7/pong-app)
 - [Exercise 2.8](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.8/todo-backend)
 - [Exercise 2.9](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.9/todo-backend)
+- [Exercise 2.10](https://github.com/LeeviHalme/fullstack-kubernetes/tree/2.10/todo-backend)
+
+**Chapter 4:**
+
+_No exercises completed_
+
+**Chapter 5:**
