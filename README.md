@@ -58,3 +58,8 @@ _No exercises completed_
 **Chapter 5:**
 
 - [Exercise 4.1](https://github.com/LeeviHalme/fullstack-kubernetes/tree/4.1/pong-app)
+- Exercise 4.2
+  - Prometheus query for the number of pods created by StatefulSets:
+    ```
+    sum(kube_pod_owner{namespace="prometheus", owner_kind="StatefulSet"})
+    ```
