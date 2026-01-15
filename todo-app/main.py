@@ -27,7 +27,10 @@ def index():
     response = requests.get(backend_api_base_url + '/api/todos', timeout=5)
     todos = response.json().get('todos', [])
 
-    return render_template('index.html', todos=todos)
+    completed_todos = [todo for todo in todos if todo.get('done')]
+    todos = [todo for todo in todos if not todo.get('done')]
+
+    return render_template('index.html', completed_todos=completed_todos, todos=todos)
 
 @app.get('/app/health')
 def health_check():

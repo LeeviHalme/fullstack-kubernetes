@@ -97,6 +97,31 @@ def add_todo():
     # Redirect back to the frontend home page
     return redirect('/')
 
+@app.put('/api/todos/<int:todo_id>')
+def mark_todo_done(todo_id):
+    """
+    Marks a todo as done.
+    """
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("UPDATE todos SET done = TRUE WHERE id = %s;", (todo_id,))
+
+    if cur.rowcount == 0:
+        print(f"ERROR: Todo not found: {todo_id}", file=sys.stderr)
+        cur.close()
+        conn.close()
+        return {'error': 'Todo not found'}, 404
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    print(f"Marked todo as done: {todo_id}", file=sys.stderr)
+
+    return {'status': 'OK'}, 200
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT'))
     print(f"Server started in port {port}")

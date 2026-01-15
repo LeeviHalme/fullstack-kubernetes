@@ -12,11 +12,27 @@
       <input type="text" maxlength="140" name="name" />
       <button type="submit">Create todo</button>
     </form>
+    {% if todos|length > 0 %}
+    <h1>Todo</h1>
     <ul>
       {% for todo in todos %}
+      <li>
+        <span>{{ todo.get("name") }}</span>
+        <button
+          onclick="fetch('/api/todos/{{ todo.id }}', {method: 'PUT'}).then(() => location.reload())">
+          Mark as done
+        </button>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% if completed_todos|length > 0 %}
+    <h1>Done</h1>
+    <ul>
+      {% for todo in completed_todos %}
       <li>{{ todo.get("name") }}</li>
       {% endfor %}
     </ul>
+    {% endif %}
     <p>DevOps with Kubernetes 2025</p>
   </body>
 </html>
