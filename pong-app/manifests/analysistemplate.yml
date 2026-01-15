@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: pong-cpu-rate
+  namespace: exercises
+spec:
+  metrics:
+    - name: pong-cpu-rate
+      interval: 1m
+      # Baseline of 0.007 -> 0.04 is a safe threshold
+      successCondition: result[0] < 0.04
+      failureLimit: 1
+      provider:
+        prometheus:
+          address: http://kube-prometheus-stack-1768-prometheus.prometheus.svc.cluster.local:9090
+          query: |
+            sum(
+              rate(
+                container_cpu_usage_seconds_total{
+                  namespace="exercises", 
+                  pod=~"pong-app-rollout-.*"
+                }[5m]
+              )
+            )
