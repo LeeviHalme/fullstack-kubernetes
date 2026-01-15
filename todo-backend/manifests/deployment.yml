@@ -17,6 +17,12 @@ spec:
         - name: todo-backend
           image: leevihalme/todo-backend:latest
           imagePullPolicy: Always
+          readinessProbe:
+            initialDelaySeconds: 10 # Initial delay until the readiness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+              path: /api/health
+              port: 8000
           env:
             - name: PORT
               valueFrom:

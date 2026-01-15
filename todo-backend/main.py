@@ -34,6 +34,22 @@ def log_request_info():
     """Log incoming requests."""
     print(f"--> {request.method} {request.path}", file=sys.stderr)
 
+@app.route('/api/health')
+def health_check():
+    """Health check endpoint."""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        cur.execute("SELECT 1;") # Simple query to test connection
+
+        cur.close()
+        conn.close()
+
+        return {"status": "OK"}, 200
+    except Exception: # pylint: disable=broad-except
+        return {"error": "Database not reachable"}, 500
+
 @app.get('/api/todos')
 def get_todos():
     """

@@ -5,6 +5,8 @@ metadata:
   namespace: project
 spec:
   schedule: "0 * * * *" # Runs at the start of every hour
+  successfulJobsHistoryLimit: 1 # Only keep the last successful pod
+  failedJobsHistoryLimit: 2 # Keep a couple of failures for debugging
   jobTemplate:
     spec:
       template:

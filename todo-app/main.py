@@ -29,6 +29,21 @@ def index():
 
     return render_template('index.html', todos=todos)
 
+@app.get('/app/health')
+def health_check():
+    """
+    Health check endpoint.
+    """
+    try:
+        backend_api_base_url = os.environ.get('BACKEND_API_BASE_URL')
+
+        response = requests.get(backend_api_base_url + '/api/todos', timeout=5)
+        response.json().get('todos', [])
+
+        return {"status": "OK"}, 200
+    except Exception: # pylint: disable=broad-except
+        return {"status": "ERROR"}, 500
+
 @app.get('/get-img')
 def get_img():
     """

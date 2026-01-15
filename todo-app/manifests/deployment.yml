@@ -24,6 +24,12 @@ spec:
           volumeMounts: # Mount volume
             - name: shared-volume
               mountPath: /usr/src/app/static
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+              path: /app/health
+              port: 3000
           env:
             - name: PORT
               value: "3000"
