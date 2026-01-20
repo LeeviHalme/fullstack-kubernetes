@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pong-app
-          image: leevihalme/pong-app:latest
+          image: PROJECT/IMAGE
           imagePullPolicy: Always
           env:
             - name: PORT

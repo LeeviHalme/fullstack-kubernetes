@@ -1,0 +1,50 @@
+name: Build and publish log-output
+
+on:
+  push:
+    paths:
+      # Only trigger if files in this folder change
+      - "log-output/**"
+
+jobs:
+  build-publish:
+    name: Build, Push, Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Build and push the Writer
+      - name: Build and publish Writer
+        run: |-
+          docker build -t "leevihalme/log-output-writer:$GITHUB_SHA" ./log-output/writer
+          docker push "leevihalme/log-output-writer:$GITHUB_SHA"
+
+      # Build and push the Server
+      - name: Build and publish Server
+        run: |-
+          docker build -t "leevihalme/log-output-server:$GITHUB_SHA" ./log-output/server
+          docker push "leevihalme/log-output-server:$GITHUB_SHA"
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2
+
+      - name: Update images in Kustomize
+        # This part will do nothing as the cluster is running locally,
+        # but in a real scenario, we would update the image tag here
+        run: |
+          cd log-output
+          echo "kustomize edit set image PROJECT/WRITER_IMAGE=leevihalme/log-output-writer:$GITHUB_SHA"
+          echo "kustomize edit set image PROJECT/SERVER_IMAGE=leevihalme/log-output-server:$GITHUB_SHA"
+
+      - name: Commit change
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "log-output/kustomization.yml"
+          message: "New version released: ${{ github.sha }}"

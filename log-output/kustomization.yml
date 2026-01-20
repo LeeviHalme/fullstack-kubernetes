@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - manifests/deployment.yml
+  - manifests/service.yml
+images:
+  - name: PROJECT/WRITER_IMAGE
+    newName: leevihalme/log-output-writer
+  - name: PROJECT/SERVER_IMAGE
+    newName: leevihalme/log-output-server
