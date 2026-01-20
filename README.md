@@ -69,3 +69,7 @@ _No exercises completed_
 - [Exercise 4.6](https://github.com/LeeviHalme/fullstack-kubernetes/tree/4.6/todo-broadcaster)
 - [Exercise 4.7](https://github.com/LeeviHalme/fullstack-kubernetes/tree/4.7/.github/workflows/log-output.yml)
   - NOTE: Since the cluster is running locally, the part that updates the image tag in Kustomize does nothing.
+- [Exercise 4.8](https://github.com/LeeviHalme/fullstack-kubernetes/tree/4.8/.github/workflows)
+  - NOTE: Since the cluster is running locally, the part that updates the image tag in Kustomize does nothing.
+
+**Chapter 6:**
