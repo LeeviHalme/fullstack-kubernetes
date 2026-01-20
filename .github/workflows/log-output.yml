@@ -23,13 +23,13 @@ jobs:
       # Build and push the Writer
       - name: Build and publish Writer
         run: |-
-          docker build -f .log-output/Dockerfile.writer -t "leevihalme/log-output-writer:$GITHUB_SHA" ./log-output
+          docker build -f ./log-output/Dockerfile.writer -t "leevihalme/log-output-writer:$GITHUB_SHA" ./log-output
           docker push "leevihalme/log-output-writer:$GITHUB_SHA"
 
       # Build and push the Server
       - name: Build and publish Server
         run: |-
-          docker build -f .log-output/Dockerfile.server -t "leevihalme/log-output-server:$GITHUB_SHA" ./log-output
+          docker build -f ./log-output/Dockerfile.server -t "leevihalme/log-output-server:$GITHUB_SHA" ./log-output
           docker push "leevihalme/log-output-server:$GITHUB_SHA"
 
       - name: Set up Kustomize
