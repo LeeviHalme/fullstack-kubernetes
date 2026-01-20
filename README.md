@@ -65,3 +65,4 @@ _No exercises completed_
     sum(kube_pod_owner{namespace="prometheus", owner_kind="StatefulSet"})
     ```
 - [Exercise 4.4](https://github.com/LeeviHalme/fullstack-kubernetes/tree/4.4/pong-app)
+- [Exercise 4.5](https://github.com/LeeviHalme/fullstack-kubernetes/tree/4.5/todo-backend)
