@@ -1,11 +1,15 @@
 import os
 import sys
+import json
+import asyncio
 import psycopg2
 from flask import Flask, request, redirect
+from nats.aio.client import Client as NATS
 
 app = Flask(__name__)
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+NATS_URI = os.getenv("NATS_URI")
 
 def get_db_connection():
     """Establish a connection to the PostgreSQL database."""
@@ -28,6 +32,24 @@ def init_db():
 
 # Initialize DB at the top level for Gunicorn
 init_db()
+
+async def notify_broadcaster(todo_data):
+    """Notify the broadcaster service via NATS about a new/updated todo."""
+    nc = NATS()
+    try:
+        # Connect to NATS service name
+        await nc.connect(NATS_URI)
+
+        payload = {
+            "user": "todo-bot",
+            "message": f"A todo was created/updated",
+            "data": todo_data
+        }
+
+        await nc.publish("todo_updates", json.dumps(payload).encode())
+        await nc.flush()
+    finally:
+        await nc.close()
 
 @app.before_request
 def log_request_info():
@@ -94,6 +116,8 @@ def add_todo():
 
     print(f"Added todo: {todo_name}", file=sys.stderr)
 
+    asyncio.run(notify_broadcaster({ "name": todo_name , "done": False }))
+
     # Redirect back to the frontend home page
     return redirect('/')
 
@@ -119,6 +143,8 @@ def mark_todo_done(todo_id):
     conn.close()
 
     print(f"Marked todo as done: {todo_id}", file=sys.stderr)
+
+    asyncio.run(notify_broadcaster({ "id": todo_id , "done": True }))
 
     return {'status': 'OK'}, 200
 

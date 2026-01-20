@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-broadcaster-dep
+  namespace: project
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: todo-broadcaster
+  template:
+    metadata:
+      labels:
+        app: todo-broadcaster
+    spec:
+      containers:
+        - name: broadcaster
+          image: leevihalme/todo-broadcaster:latest
+          env:
+            - name: NATS_URI
+              value: "nats://my-nats.default.svc.cluster.local:4222"
+            - name: EXTERNAL_URL
+              value: "https://your-webhook-url.com/api" # webhook URL for broadcasting
+          # Adding a basic resource limit is good practice for 6 replicas
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "128Mi"

@@ -194,6 +194,22 @@ files = [
 ]
 
 [[package]]
+name = "nats-py"
+version = "2.12.0"
+description = "NATS client for Python"
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "nats_py-2.12.0.tar.gz", hash = "sha256:2981ca4b63b8266c855573fa7871b1be741f1889fd429ee657e5ffc0971a38a1"},
+]
+
+[package.extras]
+aiohttp = ["aiohttp"]
+fast-parse = ["fast-mail-parser"]
+nkeys = ["nkeys"]
+
+[[package]]
 name = "psycopg2-binary"
 version = "2.9.11"
 description = "psycopg2 - Python-PostgreSQL Database Adapter"
@@ -291,4 +307,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13"
-content-hash = "62e575a35e1d292394a342528ddec3585dc506f0581a4326442dda045a43f832"
+content-hash = "de29e1733fe7b0563b184b3f9cc62e99c7693e3831b1bec92bacfb63f1d142fc"

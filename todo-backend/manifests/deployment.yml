@@ -34,3 +34,5 @@ spec:
                 configMapKeyRef:
                   name: todo-config
                   key: database_url
+            - name: NATS_URI
+              value: "nats://my-nats.default.svc.cluster.local:4222"
