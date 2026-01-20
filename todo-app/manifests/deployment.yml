@@ -19,7 +19,7 @@ spec:
             claimName: example-claim
       containers:
         - name: todo-app
-          image: leevihalme/todo-app:latest
+          image: PROJECT/IMAGE
           imagePullPolicy: Always
           volumeMounts: # Mount volume
             - name: shared-volume

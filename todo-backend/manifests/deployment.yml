@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: leevihalme/todo-backend:latest
+          image: PROJECT/IMAGE
           imagePullPolicy: Always
           readinessProbe:
             initialDelaySeconds: 10 # Initial delay until the readiness is tested

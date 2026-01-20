@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: broadcaster
-          image: leevihalme/todo-broadcaster:latest
+          image: PROJECT/IMAGE
           env:
             - name: NATS_URI
               value: "nats://my-nats.default.svc.cluster.local:4222"
