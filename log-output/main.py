@@ -6,6 +6,8 @@ app = Flask(__name__)
 
 pong_api_endpoint = os.getenv("PONG_API_ENDPOINT")
 
+# this is a comment to trigger the gh workflow
+
 @app.get("/log/healthz")
 def health_check():
     """Health check endpoint to verify pong-app connectivity."""
