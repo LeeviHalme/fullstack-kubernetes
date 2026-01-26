@@ -73,3 +73,7 @@ _No exercises completed_
   - NOTE: Since the cluster is running locally, the part that updates the image tag in Kustomize does nothing.
 
 **Chapter 6:**
+
+- [x] Exercise 5.5
+
+- [ ] Exercise 5.9
