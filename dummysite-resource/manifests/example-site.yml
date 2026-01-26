@@ -1,0 +1,7 @@
+apiVersion: stable.dwk/v1
+kind: DummySite
+metadata:
+  name: google-copy
+  namespace: exercises
+spec:
+  website_url: "https://google.com"
