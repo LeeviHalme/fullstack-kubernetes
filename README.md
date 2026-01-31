@@ -78,6 +78,7 @@ _No exercises completed_
 - [Exercise 5.2](https://github.com/LeeviHalme/fullstack-kubernetes/tree/5.2/exercise-5-2.png)
 - [Exercise 5.3](https://github.com/LeeviHalme/fullstack-kubernetes/tree/5.3/greeter)
   - ![exercise-5-3-dashboard](/exercise-5-3.png)
+- [Exercise 5.4](https://github.com/LeeviHalme/fullstack-kubernetes/tree/5.4/wiki-app)
 
 - [x] Exercise 5.5
 
