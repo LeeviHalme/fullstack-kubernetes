@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wiki-app
+  namespace: exercises
+spec:
+  volumes:
+    - name: www-data
+      emptyDir: {}
+
+  # Init container that runs once at the very beginning
+  initContainers:
+    - name: wiki-fetcher
+      image: alpine:latest
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          apk add --no-cache curl
+          curl -L https://en.wikipedia.org/wiki/Kubernetes -o /usr/share/nginx/html/index.html
+          echo "Initial page (Kubernetes) fetched."
+      volumeMounts:
+        - name: www-data
+          mountPath: /usr/share/nginx/html
+
+  containers:
+    # Main container that serves the files
+    - name: nginx
+      image: nginx:alpine
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: www-data
+          mountPath: /usr/share/nginx/html
+
+    # Sidecar container that updates the content periodically
+    - name: random-wiki-sidecar
+      image: alpine:latest
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          apk add --no-cache curl
+          while true; do
+            # Random wait between 300 and 900 seconds (5-15 mins)
+            SLEEP_TIME=$(( ( RANDOM % 601 ) + 300 ))
+            echo "Waiting $SLEEP_TIME seconds for next random page..."
+            sleep $SLEEP_TIME
+            
+            echo "Fetching random Wikipedia page..."
+            curl -L https://en.wikipedia.org/wiki/Special:Random -o /usr/share/nginx/html/index.html
+          done
+      volumeMounts:
+        - name: www-data
+          mountPath: /usr/share/nginx/html
