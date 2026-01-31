@@ -18,3 +18,4 @@ data:
   output_file_path: "files/output.txt"
 
   pong_api_endpoint: "http://pong-app-svc:5500/pings"
+  greeter_api_endpoint: "http://greeter-svc"

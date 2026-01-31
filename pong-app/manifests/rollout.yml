@@ -1,5 +1,5 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: pong-app-dep
   namespace: exercises
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pong-app
-          image: PROJECT/IMAGE
+          image: leevihalme/pong-app:f788a07cd7ef7edacd0d911854b6acefb63b9a7c
           imagePullPolicy: Always
           env:
             - name: PORT
@@ -28,11 +28,11 @@ spec:
             httpGet:
               path: /pong/healthz
               port: 5500
-  strategy:
-    canary:
-      analysis:
-        templates:
-          - templateName: pong-cpu-rate
-      steps:
-        - setWeight: 20
-        - pause: { duration: 5m }
+  # strategy:
+  #   canary:
+  #     analysis:
+  #       templates:
+  #         - templateName: pong-cpu-rate
+  #     steps:
+  #       - setWeight: 20
+  #       - pause: { duration: 5m }

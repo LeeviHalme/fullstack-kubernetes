@@ -76,6 +76,8 @@ _No exercises completed_
 
 - [Exercise 5.1](https://github.com/LeeviHalme/fullstack-kubernetes/tree/5.1/dummysite-resource)
 - [Exercise 5.2](https://github.com/LeeviHalme/fullstack-kubernetes/tree/5.2/exercise-5-2.png)
+- [Exercise 5.3](
+  - Also screenshot of the dashboard: ![exercise-5-3-dashboard](/exercise-5-3.png)
 
 - [x] Exercise 5.5
 

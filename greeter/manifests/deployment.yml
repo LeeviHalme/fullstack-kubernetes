@@ -1,0 +1,53 @@
+# Greeter V1
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeter-v1
+  labels:
+    app: greeter
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greeter
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: greeter
+        version: v1
+    spec:
+      containers:
+        - name: greeter
+          image: hashicorp/http-echo
+          args: ["-text=hello from v1"]
+          ports:
+            - containerPort: 5678
+---
+# Greeter V2
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeter-v2
+  labels:
+    app: greeter
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greeter
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: greeter
+        version: v2
+    spec:
+      containers:
+        - name: greeter
+          image: hashicorp/http-echo
+          args: ["-text=hello from v2"]
+          ports:
+            - containerPort: 5678

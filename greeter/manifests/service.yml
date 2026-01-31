@@ -1,0 +1,40 @@
+# The "Parent" service that Log-Output will call
+apiVersion: v1
+kind: Service
+metadata:
+  name: greeter-svc
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5678
+  selector:
+    app: greeter # Matches both versions initially
+---
+# Specific service for V1
+apiVersion: v1
+kind: Service
+metadata:
+  name: greeter-svc-v1
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5678
+  selector:
+    app: greeter
+    version: v1
+---
+# Specific service for V2
+apiVersion: v1
+kind: Service
+metadata:
+  name: greeter-svc-v2
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5678
+  selector:
+    app: greeter
+    version: v2

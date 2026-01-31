@@ -5,6 +5,7 @@ import requests
 app = Flask(__name__)
 
 pong_api_endpoint = os.getenv("PONG_API_ENDPOINT")
+greeter_api_endpoint = os.getenv("GREETER_API_ENDPOINT")
 
 # this is a comment to trigger the gh workflow
 
@@ -46,10 +47,17 @@ def get_status():
 
         pong_content = response.json().get("pings", "N/A")
 
+        greeter_response = requests.get(greeter_api_endpoint, timeout=5)
+        if greeter_response.status_code != 200:
+            return jsonify({"error": "Failed to retrieve greeter message"}), 500
+        
+        greeter_message = greeter_response.text.strip()
+
         return jsonify({
             "log": log_content, 
             "pong": pong_content, 
-            "information": information_content, 
+            "information": information_content,
+            "greeter": greeter_message,
             "env": message_content
         }), 200
 
